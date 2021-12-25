@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 import 'firebase_options.dart';
+import 'presentation/core/app_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,24 +14,5 @@ void main() async {
 
   configureDependencies(Environment.prod);
 
-  runApp(const App());
-}
-
-class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'App',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('App Bar'),
-        ),
-        body: const Center(
-          child: Text('Hi!'),
-        ),
-      ),
-    );
-  }
+  runApp(const AppWidget());
 }

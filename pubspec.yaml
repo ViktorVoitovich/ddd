@@ -7,6 +7,7 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
+  another_flushbar: ^1.10.28
   dartz: 0.10.1
   firebase_auth: 3.3.4
   firebase_core: 1.10.6
