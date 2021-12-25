@@ -86,8 +86,8 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
 
   FutureOr<void> _performActionOnAuthFacadeWithEmailAndPassword(
     Future<Either<AuthFailure, Unit>> Function({
-      required dynamic emailAddress,
-      required dynamic password,
+      required EmailAddress emailAddress,
+      required Password password,
     })
         forwardedCall,
     Emitter<SignInFormState> emit,

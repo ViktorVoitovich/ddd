@@ -2,6 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:ddd/domain/core/failures.dart';
 import 'package:flutter/material.dart';
 
+import 'errors.dart';
+
 @immutable
 abstract class ValueObject<T> {
   const ValueObject();
@@ -9,6 +11,13 @@ abstract class ValueObject<T> {
   Either<ValueFailure<T>, T> get value;
 
   bool isValid() => value.isRight();
+
+  T getOrCrash() {
+    return value.fold(
+      (failure) => throw UnexpectedValueError(failure),
+      id,
+    );
+  }
 
   @override
   bool operator ==(Object other) {
