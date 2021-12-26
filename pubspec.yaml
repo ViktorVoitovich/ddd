@@ -7,7 +7,8 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  another_flushbar: ^1.10.28
+  another_flushbar: 1.10.28
+  auto_route: 3.2.0
   dartz: 0.10.1
   firebase_auth: 3.3.4
   firebase_core: 1.10.6
@@ -15,18 +16,19 @@ dependencies:
     sdk: flutter
   flutter_bloc: 8.0.0
   freezed_annotation: 1.1.0
-  get_it: ^7.2.0
+  get_it: 7.2.0
   google_sign_in: 5.2.1
-  injectable: ^1.5.0
-  uuid: ^3.0.5
+  injectable: 1.5.0
+  uuid: 3.0.5
 
 dev_dependencies:
+  auto_route_generator: 3.2.0
   build_runner: 2.1.5
   flutter_lints: 1.0.0
   flutter_test:
     sdk: flutter
   freezed: 1.1.0
-  injectable_generator: ^1.5.2
+  injectable_generator: 1.5.2
 
 flutter:
   uses-material-design: true

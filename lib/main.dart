@@ -14,5 +14,5 @@ void main() async {
 
   configureDependencies(Environment.prod);
 
-  runApp(const AppWidget());
+  runApp(AppWidget());
 }
