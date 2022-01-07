@@ -17,18 +17,66 @@ class NoteRepository implements INoteRepository {
   NoteRepository(this._firebaseFirestore);
 
   @override
-  Future<Either<NoteFailure, Unit>> create(Note note) {
-    //
+  Future<Either<NoteFailure, Unit>> create(Note note) async {
+    try {
+      final userDoc = await _firebaseFirestore.userDocument();
+      final noteDto = NoteDto.fromDomain(note);
+
+      await userDoc.noteCollection.doc(noteDto.id).set(noteDto.toJson());
+
+      return right(unit);
+    } on FirebaseException catch (error) {
+      if (error.message != null &&
+          error.message!.contains('PERMISSION_DENIED')) {
+        return left(const NoteFailure.incufficientPermission());
+      } else {
+        return left(const NoteFailure.unexpected());
+      }
+    }
   }
 
   @override
-  Future<Either<NoteFailure, Unit>> delete(Note note) {
-    //
+  Future<Either<NoteFailure, Unit>> delete(Note note) async {
+    try {
+      final userDoc = await _firebaseFirestore.userDocument();
+      final noteDto = NoteDto.fromDomain(note);
+
+      await userDoc.noteCollection.doc(noteDto.id).update(noteDto.toJson());
+
+      return right(unit);
+    } on FirebaseException catch (error) {
+      if (error.message != null &&
+          error.message!.contains('PERMISSION_DENIED')) {
+        return left(const NoteFailure.incufficientPermission());
+      } else if (error.message != null &&
+          error.message!.contains('NOT_FOUND')) {
+        return left(const NoteFailure.unableToUpdate());
+      } else {
+        return left(const NoteFailure.unexpected());
+      }
+    }
   }
 
   @override
-  Future<Either<NoteFailure, Unit>> update(Note note) {
-    //
+  Future<Either<NoteFailure, Unit>> update(Note note) async {
+    try {
+      final userDoc = await _firebaseFirestore.userDocument();
+      final noteId = note.id.getOrCrash();
+
+      await userDoc.noteCollection.doc(noteId).delete();
+
+      return right(unit);
+    } on FirebaseException catch (error) {
+      if (error.message != null &&
+          error.message!.contains('PERMISSION_DENIED')) {
+        return left(const NoteFailure.incufficientPermission());
+      } else if (error.message != null &&
+          error.message!.contains('NOT_FOUND')) {
+        return left(const NoteFailure.unableToUpdate());
+      } else {
+        return left(const NoteFailure.unexpected());
+      }
+    }
   }
 
   @override
